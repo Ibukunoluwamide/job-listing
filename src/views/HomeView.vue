@@ -1,5 +1,11 @@
 <script setup>
+import { onMounted } from 'vue'
 import Navbar from '@/components/NavBar.vue'
+import jobsArray from '@/router/jobs';
+import TopBanner from '@/components/TopBanner.vue';
+onMounted(() => {
+ console.log(jobsArray);
+})
 </script>
 
 <template>
@@ -26,14 +32,7 @@ import Navbar from '@/components/NavBar.vue'
 
   </div>
 </section><!-- Top Banner -->
-<section class="bg-blue-900 text-white py-6 text-center">
-  <div class="container mx-auto">
-    <h2 class="text-3xl font-semibold">Unlock Your Career Potential</h2>
-    <p class="text-lg mt-2">
-      Discover the perfect job opportunity for you.
-    </p>
-  </div>
-</section>
+<TopBanner/>
 <!-- Job Listings -->
 <section>
   <div class="container mx-auto p-4 mt-4">
@@ -42,23 +41,27 @@ import Navbar from '@/components/NavBar.vue'
       
  
 
-<div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-    </a>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-    <p class="pb-4"><strong>Salary:</strong> $500</p>
-    <a href="/listings/1" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 ">
-        Read more
-        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg>
-    </a>
-</div>
+      <div v-for="(job) in jobsArray.slice(0, 6)" :key="job.job_id" class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ job.description }}</p>
+        <p class="pb-4"><strong>Salary:</strong> {{ job.salary }}</p>
+        <RouterLink :to="'/listings/' + job.job_id"
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded hover:bg-blue-800">
+            Read more
+            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9" />
+            </svg>
+          </RouterLink>
+    </div>
+
 
       
     </div>
-    <a href="/listings" class="block text-xl text-center">
+    <a href="/listings" class="block text-xl text-center hover:underline">
       <i class="fa fa-arrow-alt-circle-right"></i>
       Show All Jobs
     </a>
