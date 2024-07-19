@@ -10,7 +10,7 @@
         <div class="mb-4">
           <input v-model="form.password" type="password" name="password" placeholder="Password" class="w-full px-4 py-2 border rounded focus:outline-none" />
         </div>
-        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded focus:outline-none">
+        <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded focus:outline-none">
           Login
         </button>
         <p class="mt-4 text-gray-500">
@@ -25,6 +25,8 @@
 <script setup>
 import { reactive } from 'vue'
 import NavBar from '@/components/NavBar.vue'
+import axios from 'axios';
+import serverUrl from '@/server/url';
 
 const form = reactive({
   email: '',
@@ -35,6 +37,12 @@ const handleLogin = () => {
   if (form.email && form.password) {
     console.log('Login Data:', form)
     // Additional login logic goes here
+    axios.get(`${serverUrl}`)
+    .then((result) => {
+      console.log(result);
+    }).catch((err) => {
+      
+    });
   } else {
     alert('Please fill in all fields')
   }

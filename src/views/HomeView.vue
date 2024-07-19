@@ -1,8 +1,10 @@
 <script setup>
 import { onMounted } from 'vue'
 import Navbar from '@/components/NavBar.vue'
-import jobsArray from '@/router/jobs';
+import jobsArray from '@/stores/jobs';
 import TopBanner from '@/components/TopBanner.vue';
+import BottomBanner from '@/components/BottomBanner.vue';
+
 onMounted(() => {
  console.log(jobsArray);
 })
@@ -25,8 +27,8 @@ onMounted(() => {
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
         </div>
-        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Job title..." required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Job title..." required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div>
 </form>
 
@@ -48,7 +50,7 @@ onMounted(() => {
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ job.description }}</p>
         <p class="pb-4"><strong>Salary:</strong> {{ job.salary }}</p>
         <RouterLink :to="'/listings/' + job.job_id"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded hover:bg-blue-800">
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-700 rounded hover:bg-teal-800">
             Read more
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               fill="none" viewBox="0 0 14 10">
@@ -71,19 +73,7 @@ onMounted(() => {
 
 
 <!-- Bottom Banner -->
-<section class="container mx-auto my-6">
-  <div class="bg-blue-800 text-white rounded p-4 flex items-center justify-between">
-    <div>
-      <h2 class="text-xl font-semibold">Looking to hire?</h2>
-      <p class="text-gray-200 text-lg mt-2">
-        Post your job listing now and find the perfect candidate.
-      </p>
-    </div>
-    <a href="/listings/create" class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded hover:shadow-md transition duration-300">
-      <i class="fa fa-edit"></i> Post a Job
-    </a>
-  </div>
-</section>
+ <BottomBanner/>
   </main>
 
 </template>

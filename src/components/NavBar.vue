@@ -1,5 +1,5 @@
 <template>
-     <header class="bg-blue-900 text-white p-4">
+     <header class="bg-teal-800 text-white p-4">
   <div class="container mx-auto flex justify-between items-center">
     <h1 class="text-3xl font-semibold">
       <a href="/">Job Finder</a>

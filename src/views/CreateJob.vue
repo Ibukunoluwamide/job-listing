@@ -26,7 +26,7 @@
         <div class="mb-4">
           <input v-model="form.email" type="email" name="email" placeholder="Email Address For Applications" class="w-full px-4 py-2 border rounded focus:outline-none" />
         </div>
-        <button type="submit" class="w-full col-span-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3 rounded focus:outline-none">
+        <button type="submit" class="w-full col-span-2 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 my-3 rounded focus:outline-none">
           Post
         </button>
       </form>

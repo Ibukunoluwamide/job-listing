@@ -1,17 +1,16 @@
 <template>
-  <Navbar />
-  <!-- Top Banner -->
- <TopBanner/>
+    <Navbar />
+    <!-- Top Banner -->
+    <TopBanner />
 
-  <!-- Job Listings -->
-  <section>
-    <div class="container mx-auto p-4 mt-4">
-      <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">
-        All Jobs
-      </div>
+    <!-- Job Listings -->
+    <section>
+        <div class="container mx-auto p-4 mt-4">
+            <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">
+                Search Results for: php </div>
 
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <!-- Job Listing 1: Software Engineer -->
 
 
@@ -36,21 +35,21 @@
 
 
       </div>
-    </div>
-  </section>
+
+        </div>
+    </section>
 
 
 
-  <!-- Bottom Banner -->
-<BottomBanner/>
+    <!-- Bottom Banner -->
+    <BottomBanner />
 </template>
 
 <script setup>
+import Navbar from './NavBar.vue'
+import TopBanner from './TopBanner.vue'
+import BottomBanner from './BottomBanner.vue'
 import jobsArray from '@/stores/jobs';
-import Navbar from './NavBar.vue';
-import { RouterLink } from 'vue-router';
-import TopBanner from './TopBanner.vue';
-import BottomBanner from './BottomBanner.vue';
 
 </script>
 
