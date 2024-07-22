@@ -35,9 +35,17 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import Navbar from '@/components/NavBar.vue'
-
+import { useRouter } from 'vue-router'
+import axios from 'axios';
+import serverUrl from '@/server/url';
+const route = useRouter()
+onMounted(() => {
+  if (!localStorage.getItem('user')) {
+    route.push('/login')
+  }
+})
 const form = reactive({
   title: '',
   description: '',
@@ -52,9 +60,24 @@ const handleSubmit = () => {
   if (form.title && form.description && form.location && form.salary && form.requirements && form.company && form.email) {
     console.log('Job Listing Data:', form)
     // Additional form submission logic goes here
+    axios.post(`${serverUrl}/job`, form)
+      .then((result) => {
+        console.log(result.data);
+        Swal.fire({
+          text: result.data?.message,
+          icon: `${result.data?.status ? 'success' : 'error'}`,
+          confirmButtonColor: '#047481'
+        });
+        if (result.data.status == true) {
+          route.push('/')
+        }
+      })
   } else {
-    alert('Please fill in all fields')
-  }
+    Swal.fire({
+      text: "Please fill in all fields!",
+      icon: "error",
+      confirmButtonColor: '#047481'
+    });  }
 }
 </script>
 

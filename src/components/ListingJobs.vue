@@ -21,7 +21,7 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
           </a>
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ job.description }}</p>
-          <p class="pb-4"><strong>Salary:</strong> {{ job.salary }}</p>
+          <p class="pb-4"><strong>Salary:</strong> ${{ job.salary }}</p>
           <RouterLink :to="'/listings/' + job.job_id"
             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-700 rounded hover:bg-teal-800">
             Read more
@@ -46,12 +46,26 @@
 </template>
 
 <script setup>
-import jobsArray from '@/stores/jobs';
 import Navbar from './NavBar.vue';
 import { RouterLink } from 'vue-router';
 import TopBanner from './TopBanner.vue';
 import BottomBanner from './BottomBanner.vue';
+import axios from 'axios';
+import serverUrl from '@/server/url';
+import {ref, onMounted} from 'vue'
+const jobsArray = ref([])
+onMounted(async() => {
+  try {
+    const result = await axios.get(`${serverUrl}/job`); // Assuming the endpoint is /jobs
+    console.log(result);
+    jobsArray.value = result.data;
+    return jobsArray.value;
 
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+})
 </script>
 
 <style></style>

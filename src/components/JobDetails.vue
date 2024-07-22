@@ -18,7 +18,7 @@
         <p class="text-gray-700 text-lg mt-2">
           {{ currentJob.description }}</p>
         <ul class="my-4 bg-gray-100 p-4">
-          <li class="mb-2"><strong>Salary:</strong> {{ currentJob.salary }}</li>
+          <li class="mb-2"><strong>Salary:</strong> ${{ currentJob.salary }}</li>
           <li class="mb-2">
             <strong>Location:</strong> {{ currentJob.location }}
             <!-- <span class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">Local</span> -->
@@ -52,17 +52,28 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import Navbar from './NavBar.vue';
-import jobsArray from '@/stores/jobs';
 import { useRoute } from 'vue-router';
 import TopBanner from './TopBanner.vue';
 import BottomBanner from './BottomBanner.vue';
+import axios from 'axios';
+import serverUrl from '@/server/url';
 const currentJob = ref({})
+const jobsArray = ref([])
 const route = useRoute()
-onMounted(() => {
+onMounted(async() => {
   const jobId = route.params.id;
-      const job = jobsArray.find(job => job.job_id === jobId);
-      console.log(job);
-      currentJob.value = job
+  try {
+    const result = await axios.get(`${serverUrl}/job`); // Assuming the endpoint is /jobs
+    console.log(result.data);
+    jobsArray.value = result.data;
+    const job = result.data.find(job => job.job_id == jobId);
+    console.log(job);
+    currentJob.value = job
+
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 })
 </script>
 

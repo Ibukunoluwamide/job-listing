@@ -27,7 +27,8 @@ import { reactive } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import axios from 'axios';
 import serverUrl from '@/server/url';
-
+import { useRouter } from 'vue-router';
+const route = useRouter()
 const form = reactive({
   email: '',
   password: ''
@@ -37,15 +38,28 @@ const handleLogin = () => {
   if (form.email && form.password) {
     console.log('Login Data:', form)
     // Additional login logic goes here
-    axios.get(`${serverUrl}`)
+    axios.post(`${serverUrl}/login`, form)
     .then((result) => {
-      console.log(result);
+      console.log(result.data);
+        Swal.fire({
+          text: result.data?.message,
+          icon: `${result.data?.status ? 'success' : 'error'}`,
+          confirmButtonColor: '#047481'
+        });
+        if (result.data.status == true) {
+          localStorage.setItem('user',JSON.stringify(result.data.user));
+          route.push('/listings/create')
+        }
     }).catch((err) => {
       
     });
   } else {
-    alert('Please fill in all fields')
-  }
+    Swal.fire({
+      text: "Please fill in all fields!",
+      icon: "error",
+      confirmButtonColor: '#047481'
+    });
+    }
 }
 </script>
 
