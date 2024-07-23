@@ -1,86 +1,144 @@
 <template>
-  <section>
-    <Navbar/>
-    <div class="bg-white p-4 md:p-8 rounded-lg shadow-md max-w-xl w-full mx-auto mt-8">
-      <h2 class="text-4xl text-center font-bold mb-4">Create Job Listing</h2>
-      <form @submit.prevent="handleSubmit" class="md:grid grid-cols-2 gap-4">
-        <div class="mb-4 col-span-2">
-          <input v-model="form.title" type="text" name="title" placeholder="Job Title" class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4 col-span-2">
-          <textarea v-model="form.description" name="description" placeholder="Job Description" class="w-full px-4 py-2 border rounded focus:outline-none"></textarea>
-        </div>
-        <div class="mb-4 col-span-2">
-          
-          <textarea v-model="form.requirements" type="text" name="requirements" placeholder="Requirements" class="w-full px-4 py-2 border rounded focus:outline-none"></textarea>
-        </div>
-        <div class="mb-4">
-          <input v-model="form.location" type="text" name="location" placeholder="Location" class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4">
-          <input v-model="form.salary" type="number" name="salary" placeholder="Salary" class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4">
-          <input v-model="form.company" type="text" name="company" placeholder="Company Name" class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4">
-          <input v-model="form.email" type="email" name="email" placeholder="Email Address For Applications" class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <button type="submit" class="w-full col-span-2 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 my-3 rounded focus:outline-none">
-          Post
+  <Navbar/>
+  <div class="bg-gray-100 mt-4">
+    <form @submit.prevent="handleSubmit" class="bg-white shadow-lg rounded p-4 max-w-xl mx-auto ">
+      <h2 class="text-4xl text-center font-bold mb-4 ">Create Job</h2>
+     <div class="md:grid grid-cols-2 gap-4">
+      <div class="mb-4">
+        <label for="title" class="block text-gray-700 font-semibold mb-2">Job Title</label>
+        <input
+          type="text"
+          id="title"
+          v-model="form.title"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="company" class="block text-gray-700 font-semibold mb-2">Company</label>
+        <input
+          type="text"
+          id="company"
+          v-model="form.company"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="location" class="block text-gray-700 font-semibold mb-2">Location</label>
+        <input
+          type="text"
+          id="location"
+          v-model="form.location"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="salary" class="block text-gray-700 font-semibold mb-2">Salary</label>
+        <input
+          type="number"
+          id="salary"
+          v-model="form.salary"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700 font-semibold mb-2">Job Description</label>
+        <textarea
+          id="description"
+          v-model="form.description"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4">
+        <label for="requirements" class="block text-gray-700 font-semibold mb-2">Requirements</label>
+        <textarea
+          id="requirements"
+          v-model="form.requirements"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        ></textarea>
+      </div>
+    
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+        <input
+          type="email"
+          id="email"
+          v-model="form.email"
+          required
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Job Type</label>
+        <select v-model="form.jobType" required class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500">
+          <option value="full-time">Full-time</option>
+          <option value="part-time">Part-time</option>
+          <option value="remote">Remote</option>
+        </select>
+      </div>
+     </div>
+      <div class="text-right w-full">
+        <button type="submit" class="bg-green-500 w-full text-white font-bold py-2 px-4 rounded hover:bg-green-600">
+          Post Job
         </button>
-      </form>
-    </div>
-  </section>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
-import Navbar from '@/components/NavBar.vue'
-import { useRouter } from 'vue-router'
+import Navbar from '@/components/NavBar.vue';
+import { reactive } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 import serverUrl from '@/server/url';
-const route = useRouter()
-onMounted(() => {
-  if (!localStorage.getItem('user')) {
-    route.push('/login')
-  }
-})
-const form = reactive({
-  title: '',
-  description: '',
-  location: '',
-  salary: '',
-  requirements: '',
-  company: '',
-  email: ''
-})
 
-const handleSubmit = () => {
-  if (form.title && form.description && form.location && form.salary && form.requirements && form.company && form.email) {
-    console.log('Job Listing Data:', form)
-    // Additional form submission logic goes here
-    axios.post(`${serverUrl}/job`, form)
-      .then((result) => {
-        console.log(result.data);
+const form = reactive({
+      title: '',
+      description: '',
+      location: '',
+      salary: '',
+      requirements: '',
+      company: '',
+      email: '',
+      jobType: 'full-time',
+      user_id: JSON.parse(localStorage.getItem('user')).user_id || null
+    });
+
+    const router = useRouter();
+
+    const handleSubmit = () => {
+      if (form.title && form.description && form.location && form.salary && form.requirements && form.company && form.email && form.jobType) {
+        console.log('Job Listing Data:', form);
+        // Additional form submission logic goes here
+        axios.post(`${serverUrl}/job`, form)
+          .then((result) => {
+            console.log(result.data);
+            Swal.fire({
+              text: result.data?.message,
+              icon: result.data?.status ? 'success' : 'error',
+              confirmButtonColor: '#047481',
+            });
+            if (result.data.status) {
+              router.push('/');
+            }
+          });
+      } else {
         Swal.fire({
-          text: result.data?.message,
-          icon: `${result.data?.status ? 'success' : 'error'}`,
-          confirmButtonColor: '#047481'
+          text: 'Please fill in all fields!',
+          icon: 'error',
+          confirmButtonColor: '#047481',
         });
-        if (result.data.status == true) {
-          route.push('/')
-        }
-      })
-  } else {
-    Swal.fire({
-      text: "Please fill in all fields!",
-      icon: "error",
-      confirmButtonColor: '#047481'
-    });  }
-}
+      }
+    };
 </script>
 
-<style>
-/* Add your custom styles here */
+<style scoped>
+/* Add any additional styles if necessary */
 </style>

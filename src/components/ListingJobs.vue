@@ -15,25 +15,33 @@
         <!-- Job Listing 1: Software Engineer -->
 
 
-        <div v-for="(job) in jobsArray" :key="job.job_id"
-          class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
-          </a>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ job.description }}</p>
-          <p class="pb-4"><strong>Salary:</strong> ${{ job.salary }}</p>
-          <RouterLink :to="'/listings/' + job.job_id"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-700 rounded hover:bg-teal-800">
-            Read more
-            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </RouterLink>
+        <div v-for="(job) in jobsArray" :key="job.job_id" class="bg-gray-100 ">
+            <div class="bg-white shadow-lg rounded-lg p-6">
+              <div class="flex items-center mb-4">
+                <div class="">
+                  <h2 class="font-semibold text-gray-900">{{ job.company }}</h2>
+                  <p class="text-gray-600">{{ job.location }}</p>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ job.title }}</h3>
+              <p :class="{
+                'text-yellow-500': job.jobType === 'part-time',
+                'text-blue-500': job.jobType === 'remote',
+                'text-green-500': job.jobType == 'full-time' 
+              }" class="font-medium mb-2">
+                {{ job.jobType }}
+              </p>
+              <p class="text-gray-600 mb-4">{{ job.requirements }}</p>
+              <div class="flex items-center justify-between">
+                <p class="text-lg font-semibold text-gray-900">${{ job.salary }}/monthly</p>
+                <a :href="'mailto:' + job.email">
+                  <button class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600">Apply
+                    Now</button>
 
-        </div>
-
+                </a>
+              </div>
+            </div>
+          </div>
 
       </div>
     </div>

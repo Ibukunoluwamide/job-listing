@@ -41,7 +41,7 @@ const router = createRouter({
           component: () => import('@/views/CreateJob.vue')
         },
         {
-          path: 'search/:query',
+          path: 'search',
           name: 'listing-search',
           component: () => import('@/components/SearchQuery.vue')
         }

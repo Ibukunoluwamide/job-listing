@@ -6,27 +6,19 @@
       <form @submit.prevent="handleSubmit">
         <div class="mb-4">
           <input v-model="form.name" type="text" name="name" placeholder="Full Name"
-            class="w-full px-4 py-2 border rounded focus:outline-none" />
+            class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500" />
         </div>
         <div class="mb-4">
           <input v-model="form.email" type="email" name="email" placeholder="Email Address"
-            class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4">
-          <input v-model="form.city" type="text" name="city" placeholder="City"
-            class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
-        <div class="mb-4">
-          <input v-model="form.state" type="text" name="state" placeholder="State"
-            class="w-full px-4 py-2 border rounded focus:outline-none" />
-        </div>
+            class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500" />
+        </div>        
         <div class="mb-4">
           <input v-model="form.password" type="password" name="password" placeholder="Password"
-            class="w-full px-4 py-2 border rounded focus:outline-none" />
+            class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500" />
         </div>
         <div class="mb-4">
           <input v-model="form.password_confirmation" type="password" name="password_confirmation"
-            placeholder="Confirm Password" class="w-full px-4 py-2 border rounded focus:outline-none" />
+            placeholder="Confirm Password" class="w-full px-3 py-2 border rounded focus:outline-none focus:border-green-500" />
         </div>
         <button type="submit"
           class="w-full bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded focus:outline-none">
@@ -51,8 +43,6 @@ const route = useRouter()
 const form = reactive({
   name: '',
   email: '',
-  city: '',
-  state: '',
   password: '',
   password_confirmation: ''
 })
@@ -64,7 +54,7 @@ const handleSubmit = () => {
       icon: "error"
     });
   }
-  else if (form.name && form.email && form.city && form.state && form.password && form.password_confirmation) {
+  else if (form.name && form.email && form.password && form.password_confirmation) {
     console.log('Form Data:', form)
     // Additional form submission logic goes here
     axios.post(`${serverUrl}/users`, form)
