@@ -108,7 +108,7 @@ const form = reactive({
       company: '',
       email: '',
       jobType: 'full-time',
-      user_id: JSON.parse(localStorage.getItem('user')).user_id || null
+      user_id: localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')).user_id : null
     });
 
     const router = useRouter();
